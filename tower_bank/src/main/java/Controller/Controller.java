@@ -69,8 +69,7 @@ public class Controller {
 
         do {
             System.out.println("O que deseja fazer?\n\n" +
-                            "1 - cadastrar cliente\n2 - criar conta\n3 - apagar conta\n4 - abrir agencia\n5 - cadastrar municípip" +
-                            "\n6 - buscar agência por cidade\n\nDigite outro valor para sair");
+                            "1 - cadastrar cliente\n2 - criar conta\n3 - apagar conta\n4 - abrir agencia\n5 - cadastrar municípip");
             op = input.nextInt();
             switch (op){
                 case 1: clienteService.create(connection);
