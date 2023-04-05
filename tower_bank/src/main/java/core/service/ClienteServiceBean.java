@@ -1,6 +1,7 @@
 package core.service;
 
 import core.dao.ClienteDAO;
+import core.utils.Utils;
 import entity.Cliente;
 
 import javax.swing.JOptionPane;
@@ -40,13 +41,17 @@ public class ClienteServiceBean implements ClienteService{
     }
 
     @Override
-    public List<ClienteService> listAll(Connection con) {
+    public List<Cliente> listAll(Connection con) {
         return null;
     }
 
     @Override
-    public ClienteService getById(Connection con, Integer id) {
-        return null;
+    public Cliente getById(Connection con, Integer id) throws Exception {
+        Cliente cliente= null;
+        Utils.validateGenericInput(id);
+        cliente = ClienteDAO.findById(id, con);
+
+        return cliente;
     }
 
 }

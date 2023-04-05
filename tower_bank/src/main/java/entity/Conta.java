@@ -13,6 +13,25 @@ public class Conta {
     private Integer numero;
     private Integer senha;
 
+    public Conta(Integer id, Integer cliente, Integer agencia, Integer tipo, Double saldo, Integer numero, Integer senha) {
+        this.id = id;
+        this.cliente = cliente;
+        this.agencia = agencia;
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.numero = numero;
+        this.senha = senha;
+    }
+
+    public Conta(Integer cliente, Integer agencia, Integer tipo, Double saldo, Integer numero, Integer senha) {
+        this.cliente = cliente;
+        this.agencia = agencia;
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.numero = numero;
+        this.senha = senha;
+    }
+
     public Integer getId() {
         return id;
     }

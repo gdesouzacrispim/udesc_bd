@@ -1,5 +1,7 @@
 package core.service;
 
+import entity.Cliente;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.List;
@@ -12,7 +14,7 @@ public interface ClienteService extends Serializable {
 
     void update(Connection con);
 
-    List<ClienteService> listAll(Connection con);
+    List<Cliente> listAll(Connection con);
 
-    ClienteService getById(Connection con, Integer id);
+    Cliente getById(Connection con, Integer id) throws Exception;
 }

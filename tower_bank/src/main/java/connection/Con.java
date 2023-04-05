@@ -17,7 +17,6 @@ public class Con {
 
         try {
             this.connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão realizada com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(Con.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();

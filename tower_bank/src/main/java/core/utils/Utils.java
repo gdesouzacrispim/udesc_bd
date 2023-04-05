@@ -1,4 +1,4 @@
-package core.service;
+package core.utils;
 
 import core.exception.CampoInvalidoExceptions;
 
