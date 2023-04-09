@@ -1,8 +1,5 @@
 package entity;
 
-/**
- * @Author: crispim
- */
 public class Agencia {
 
     private Integer id;

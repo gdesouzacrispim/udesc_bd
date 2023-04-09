@@ -87,8 +87,13 @@ public class ContaServiceBean implements ContaService {
     }
 
     @Override
-    public Conta findByPasswordAndNumber(Connection con, Integer number, Integer password) {
-        return null;
+    public Conta findByPasswordAndNumber(Connection con, Integer number, Integer password) throws SQLException {
+        return ContaDAO.getByNumberAndPassoword(con, number, password);
+    }
+
+    @Override
+    public Conta getByNumber(Connection con, Integer number) throws SQLException {
+        return ContaDAO.findByNumber(con, number);
     }
 
     private Integer generateCountNumber() {

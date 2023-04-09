@@ -13,7 +13,26 @@ public class Movimentacao {
     private Integer contaDestino;
     private Integer agencia;
     private Date data;
+    private Double valor;
     private String descricao;
+
+    public Movimentacao(Integer autor, int operacao, Integer contaDestino, Integer agencia, Date data, Double valor, String descricao) {
+        this.autor = autor;
+        this.operacao = operacao;
+        this.contaDestino = contaDestino;
+        this.agencia = agencia;
+        this.data = data;
+        this.valor = valor;
+        this.descricao = descricao;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
 
     public Integer getId() {
         return id;

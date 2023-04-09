@@ -8,11 +8,13 @@ import core.service.ClienteService;
 import core.service.ClienteServiceBean;
 import core.service.ContaService;
 import core.service.ContaServiceBean;
+import core.service.MovimentacaoService;
+import core.service.MovimentacaoServiceBean;
 import entity.Conta;
+import entity.TipoConta;
 
 import javax.swing.JOptionPane;
 import java.sql.Connection;
-import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -21,6 +23,7 @@ public class Controller {
     static ContaService contaService  = new ContaServiceBean();
     static CidadeService cidadeService  = new CidadeServiceBean();
     static AgenciaService agenciaService  = new AgenciaServiceBean();
+    static MovimentacaoService movimentacaoService  = new MovimentacaoServiceBean();
 
     static Scanner input = new Scanner(System.in);
 
@@ -40,13 +43,12 @@ public class Controller {
         } while(op>0 && op<3);
     }
 
-    private static void autenticacao(Connection connection){
+    private static void autenticacao(Connection connection) throws Exception {
         System.out.println("Digite o número de sua conta");
-        String numero = input.next();
+        Integer numero = input.nextInt();
         System.out.println("Digite a senha de sua conta");
-        String senha = input.next();
-        //toDO - buscar conta com essas credenciais
-        Conta conta = null;
+        Integer senha = input.nextInt();
+        Conta conta = contaService.findByPasswordAndNumber(connection, numero, senha);
         menuCliente(connection, conta);
     }
     
@@ -62,7 +64,46 @@ public class Controller {
 
     }
 
-    private static void menuCliente(Connection connection, Conta conta){}
+    private static void menuCliente(Connection connection, Conta conta) throws Exception {
+        int op = 0;
+
+        do {
+
+            TipoConta tipoConta = null;
+            for (TipoConta tipo : TipoConta.values()) {
+                if (tipo.getCod() == conta.getTipo()) {
+                    tipoConta = tipo;
+                    break;
+                }
+            }
+            System.out.println("Olá " + clienteService.getById(connection, conta.getCliente()).getNome() + "\n" +
+                    "NÚMERO DA CONTA: " + conta.getNumero() + " | SALDO: " + conta.getSaldo() + " | TIPO: " + tipoConta.getDescricao());
+            System.out.println("_______________________________ \n O que deseja fazer?\n\n" +
+                    "01 - Sacar\n" +
+                    "02 - Depositar\n" +
+                    "03 - Realizar pagamento de boletos\n" +
+                    "04 - Transferências\n" +
+                    "05 - Consultar extrato\n" +
+                    "06 - Atualizar seus dados\n" +
+                    "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
+            op = input.nextInt();
+            switch (op){
+                case 1: movimentacaoService.saca(connection, conta);
+                    break;
+                case 2: movimentacaoService.deposito(connection, conta);
+                    break;
+                case 3: movimentacaoService.pagamento(connection, conta);
+                    break;
+                case 4: movimentacaoService.transferencia(connection, conta);
+                    break;
+                case 5: movimentacaoService.extrato(connection, conta);
+                    break;
+                case 6: clienteService.update(connection);
+                    break;
+            }
+        } while(op>0 && op<7);
+
+    }
 
     private static void menuAdmin(Connection connection) throws Exception {
         JOptionPane.showMessageDialog(null,"ACESSO PERMITIDO!!");

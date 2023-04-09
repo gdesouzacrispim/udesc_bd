@@ -18,5 +18,7 @@ public interface ContaService extends Serializable {
 
     Conta getById(Connection con, Integer id);
 
-    Conta findByPasswordAndNumber(Connection con, Integer number, Integer password);
+    Conta findByPasswordAndNumber(Connection con, Integer number, Integer password) throws SQLException;
+
+    Conta getByNumber(Connection con, Integer number) throws SQLException;
 }

@@ -10,6 +10,10 @@ public enum TipoConta {
     private int cod;
     private String descricao;
 
+    TipoConta(int cod) {
+        this.cod = cod;
+    }
+
     TipoConta(int cod, String descricao) {
         this.cod = cod;
         this.descricao = descricao;

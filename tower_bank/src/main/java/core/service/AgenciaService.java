@@ -3,7 +3,6 @@ package core.service;
 import core.exception.CampoInvalidoExceptions;
 import entity.Agencia;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;

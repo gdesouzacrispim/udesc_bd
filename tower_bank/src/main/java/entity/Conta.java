@@ -1,8 +1,5 @@
 package entity;
 
-/**
- * @author: crispim
- */
 public class Conta {
 
     private Integer id;
@@ -12,6 +9,15 @@ public class Conta {
     private Double saldo;
     private Integer numero;
     private Integer senha;
+
+    public Conta(Integer id, Integer cliente, Integer agencia, Integer tipo, Double saldo, Integer numero) {
+        this.id = id;
+        this.cliente = cliente;
+        this.agencia = agencia;
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.numero = numero;
+    }
 
     public Conta(Integer id, Integer cliente, Integer agencia, Integer tipo, Double saldo, Integer numero, Integer senha) {
         this.id = id;

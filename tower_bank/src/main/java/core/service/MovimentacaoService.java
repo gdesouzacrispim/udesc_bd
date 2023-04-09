@@ -1,5 +1,6 @@
 package core.service;
 
+import entity.Conta;
 import entity.Movimentacao;
 
 import java.io.Serializable;
@@ -8,15 +9,15 @@ import java.util.List;
 
 public interface MovimentacaoService extends Serializable {
 
-    void pagamento(Connection con);
+    void pagamento(Connection con, Conta conta) throws Exception;
 
-    void depostio(Connection con);
+    void deposito(Connection con, Conta conta) throws Exception;
 
-    void saca(Connection con);
+    void saca(Connection con, Conta conta) throws Exception;
 
-    void transferencia(Connection con);
+    void transferencia(Connection con, Conta conta) throws Exception;
 
-    List<Movimentacao> extrato(Connection con);
+    List<Movimentacao> extrato(Connection con, Conta conta) throws Exception;
 
-    Movimentacao comprovamte(Connection con, Integer id);
+    Movimentacao comprovamte(Connection con, Conta conta) throws Exception;
 }
