@@ -15,6 +15,7 @@ import entity.TipoConta;
 
 import javax.swing.JOptionPane;
 import java.sql.Connection;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -53,15 +54,13 @@ public class Controller {
     }
     
     private static void admin(Connection connection) throws Exception {
-/*        String senhaAdmin = JOptionPane.showInputDialog("Digite a senha de administrador: ");
+       String senhaAdmin = JOptionPane.showInputDialog("Digite a senha de administrador: ");
         if (Objects.equals(senhaAdmin, "pudim")){
             menuAdmin(connection);
         } else {
             JOptionPane.showMessageDialog(null,"ACESSO NEGADO!!");
             menu(connection);
-        }*/
-        menuAdmin(connection);
-
+        }
     }
 
     private static void menuCliente(Connection connection, Conta conta) throws Exception {
