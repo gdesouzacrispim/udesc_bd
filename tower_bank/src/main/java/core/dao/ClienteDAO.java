@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO {
 
@@ -44,5 +47,28 @@ public class ClienteDAO {
         } finally {
             statement.close();
         }
+    }
+
+    public static List<Cliente> listaAllClientes(Connection con) throws SQLException {
+        List<Cliente> clientes = new ArrayList<>();
+        Statement st;
+        st = con.createStatement();
+        String sql = "SELECT id, nome, telefone, email, cpf, endereco FROM trabalho.cliente";
+        ResultSet resultSet = st.executeQuery(sql);
+        while (resultSet.next()){
+            clientes.add(new Cliente(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                    resultSet.getString(6)));
+        }
+        st.close();
+        return clientes;
+    }
+
+    public static void deleteById(Connection con, Integer id) throws SQLException {
+        PreparedStatement st;
+        st = con.prepareStatement("DELETE FROM trabalho.cliente WHERE id = ?");
+        st.setInt(1, id);
+        st.execute();
+        st.close();
     }
 }

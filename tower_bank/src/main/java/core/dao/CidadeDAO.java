@@ -51,6 +51,16 @@ public class CidadeDAO {
         while(result.next()) {
             cidades.add(new Cidade(result.getInt(1), result.getString(2), result.getString(3)));
         }
+        st.close();
         return cidades;
     }
+
+    public static void deleteById(Connection con, Integer id) throws SQLException {
+         PreparedStatement st;
+         st = con.prepareStatement("DELETE FROM trabalho.cidade WHERE id = ?");
+         st.setInt(1, id);
+         st.execute();
+         st.execute();
+    }
+
 }

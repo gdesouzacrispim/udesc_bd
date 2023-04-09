@@ -6,6 +6,7 @@ import entity.Cliente;
 
 import javax.swing.JOptionPane;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ClienteServiceBean implements ClienteService{
@@ -31,8 +32,11 @@ public class ClienteServiceBean implements ClienteService{
     }
 
     @Override
-    public void delete(Connection con) {
+    public void delete(Connection con) throws SQLException {
+        Integer clienteId = Integer.valueOf(JOptionPane.showInputDialog("Digiete o ID do cliente que deseja excluir\n" +
+                Utils.showAllClienteFormated(con)));
 
+        ClienteDAO.deleteById(con, clienteId);
     }
 
     @Override
@@ -41,8 +45,8 @@ public class ClienteServiceBean implements ClienteService{
     }
 
     @Override
-    public List<Cliente> listAll(Connection con) {
-        return null;
+    public List<Cliente> listAll(Connection con) throws SQLException {
+        return ClienteDAO.listaAllClientes(con);
     }
 
     @Override

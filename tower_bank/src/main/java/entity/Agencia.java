@@ -11,6 +11,15 @@ public class Agencia {
     private String cnpj;
     private Integer codigoCidade;
 
+    public Agencia() {
+    }
+
+    public Agencia(Integer id, String nome, String cnpj) {
+        this.id = id;
+        this.nome = nome;
+        this.cnpj = cnpj;
+    }
+
     public Agencia(Integer id, String nome, String endereco, String cnpj, Integer codigoCidade) {
         this.id = id;
         this.nome = nome;

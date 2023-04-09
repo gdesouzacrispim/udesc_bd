@@ -51,14 +51,15 @@ public class Controller {
     }
     
     private static void admin(Connection connection) throws Exception {
-        System.out.println("Digite a senha de administrador: ");
-        String senhaAdmin = input.next();
+/*        String senhaAdmin = JOptionPane.showInputDialog("Digite a senha de administrador: ");
         if (Objects.equals(senhaAdmin, "pudim")){
             menuAdmin(connection);
         } else {
             JOptionPane.showMessageDialog(null,"ACESSO NEGADO!!");
             menu(connection);
-        }
+        }*/
+        menuAdmin(connection);
+
     }
 
     private static void menuCliente(Connection connection, Conta conta){}
@@ -69,7 +70,17 @@ public class Controller {
 
         do {
             System.out.println("O que deseja fazer?\n\n" +
-                            "1 - cadastrar cliente\n2 - criar conta\n3 - apagar conta\n4 - abrir agencia\n5 - cadastrar municípip");
+                            "01 - cadastrar cliente\n" +
+                            "02 - criar conta\n" +
+                            "03 - apagar conta\n" +
+                            "04 - abrir agencia\n" +
+                            "05 - cadastrar cidade\n" +
+                            "06 - deletetar cidade\n" +
+                            "07 - deletar agência\n" +
+                            "08 - Remover cliente\n" +
+                            "09 - Atualizar dados agência\n" +
+                            "10 - Relatório: Listar agência por cidade" +
+                            "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
                 case 1: clienteService.create(connection);
@@ -82,8 +93,18 @@ public class Controller {
                     break;
                 case 5: cidadeService.cadastrar(connection);
                     break;
+                case 6: cidadeService.delete(connection);
+                    break;
+                case 7: agenciaService.delete(connection);
+                    break;
+                case 8: clienteService.delete(connection);
+                    break;
+                case 9: agenciaService.update(connection);
+                    break;
+                case 10: agenciaService.listByCidade(connection);
+                    break;
             }
-        } while(op>0 && op<7);
+        } while(op>0 && op<11);
     }
 
 }

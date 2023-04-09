@@ -12,7 +12,7 @@ public interface CidadeService extends Serializable {
 
     void cadastrar(Connection con) throws CampoInvalidoExceptions, SQLException;
 
-    void delete(Connection con);
+    void delete(Connection con) throws SQLException, CampoInvalidoExceptions;
 
     List<Cidade> listAll(Connection con) throws SQLException;
 

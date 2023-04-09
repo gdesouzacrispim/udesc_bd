@@ -25,8 +25,13 @@ public class CidadeServiceBean implements CidadeService{
     }
 
     @Override
-    public void delete(Connection con) {
+    public void delete(Connection con) throws SQLException, CampoInvalidoExceptions {
+        Integer idCidade = Integer.valueOf(JOptionPane.showInputDialog("Infome o ID da cidade que deseja apagar\n " +
+                Utils.showAllCitysFormated(con)));
 
+        Utils.validateGenericInput(idCidade);
+
+        CidadeDAO.deleteById(con, idCidade);
     }
 
     @Override
@@ -36,7 +41,6 @@ public class CidadeServiceBean implements CidadeService{
 
     @Override
     public Cidade getById(Connection con, Integer id) throws Exception {
-
         Utils.validateGenericInput(id);
         return CidadeDAO.findById(id, con);
 

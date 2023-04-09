@@ -1,11 +1,15 @@
 package core.dao;
 
+import dto.AgenciaCidadeDTO;
 import entity.Agencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgenciaDAO {
 
@@ -41,5 +45,54 @@ public class AgenciaDAO {
         } finally {
             statement.close();
         }
+    }
+
+    public static void deleteById(Connection con, Integer id) throws SQLException {
+        PreparedStatement st;
+        st = con.prepareStatement("DELETE FROM trabalho.agencia WHERE id = ?");
+        st.setInt(1, id);
+        st.execute();
+        st.close();
+    }
+
+    public static List<Agencia> listAll(Connection con) throws SQLException {
+        Statement st;
+        List<Agencia> agencias = new ArrayList<>();
+        st = con.createStatement();
+        String sql = "SELECT id, nome, cnpj FROM trabalho.agencia";
+        ResultSet result = st.executeQuery(sql);
+        while(result.next()) {
+            agencias.add(new Agencia(result.getInt(1), result.getString(2), result.getString(3)));
+        }
+        st.close();
+        return agencias;
+    }
+
+    public static void update(Connection con, Agencia novaAgencia, Integer id) throws SQLException {
+        PreparedStatement st;
+        st = con.prepareStatement("UPDATE trabalho.agencia SET nome = ?, endereco = ?, cnpj = ?, cidade = ?" +
+                " WHERE id = ?");
+        st.setString(1, novaAgencia.getNome());
+        st.setString(2, novaAgencia.getEndereco());
+        st.setString(3, novaAgencia.getCnpj());
+        st.setInt(4, novaAgencia.getCodigoCidade());
+        st.setInt(5, id);
+        st.execute();
+        st.close();
+    }
+
+    public static List<AgenciaCidadeDTO> listByCidade (Connection con, Integer idCidade) throws SQLException {
+        List<AgenciaCidadeDTO> agencias = new ArrayList<>();
+        PreparedStatement st;
+        st = con.prepareStatement("select a.nome, a.endereco, a.cnpj, cid.nome from trabalho.agencia a join trabalho.cidade cid on cid.id = a.cidade where cid.id = ?");
+        st.setInt(1, idCidade);
+        ResultSet resultSet = st.executeQuery();
+
+        while (resultSet.next()){
+            agencias.add(new AgenciaCidadeDTO(resultSet.getString(1), resultSet.getString(2),
+                    resultSet.getString(3), resultSet.getString(4)));
+        }
+        st.close();
+        return agencias;
     }
 }
