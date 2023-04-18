@@ -80,10 +80,10 @@ public class Controller {
             System.out.println("_______________________________ \n O que deseja fazer?\n\n" +
                     "01 - Sacar\n" +
                     "02 - Depositar\n" +
-                    "03 - Realizar pagamento de boletos\n" +
+                    "03 - Realizar pagamento de boletos\n" + //toDO COMO LER CÓDIGO BOLETO
                     "04 - Transferências\n" +
                     "05 - Consultar extrato\n" +
-                    "06 - Atualizar seus dados\n" +
+                    "06 - Atualizar seus dados\n" + //toDO
                     "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
