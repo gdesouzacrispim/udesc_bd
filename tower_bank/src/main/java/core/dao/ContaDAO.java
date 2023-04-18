@@ -1,6 +1,5 @@
 package core.dao;
 
-import connection.Con;
 import entity.Conta;
 
 import java.sql.Connection;
@@ -68,7 +67,7 @@ public class ContaDAO {
     public static Conta findByNumber(Connection con, Integer number) throws SQLException {
         Conta conta = null;
         PreparedStatement st;
-        st = con.prepareStatement("SELECT * FROM trabalho.conta WHERE number = ?");
+        st = con.prepareStatement("SELECT * FROM trabalho.conta WHERE numero = ?");
         st.setInt(1, number);
         ResultSet resultSet = st.executeQuery();
         while (resultSet.next()){

@@ -16,6 +16,12 @@ public class Movimentacao {
     private Double valor;
     private String descricao;
 
+    public Movimentacao(Date data, Double valor, String descricao) {
+        this.data = data;
+        this.valor = valor;
+        this.descricao = descricao;
+    }
+
     public Movimentacao(Integer autor, int operacao, Integer contaDestino, Integer agencia, Date data, Double valor, String descricao) {
         this.autor = autor;
         this.operacao = operacao;
@@ -88,5 +94,10 @@ public class Movimentacao {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%-30s%-50s%10.2f\n\n", data, descricao, valor);
     }
 }
