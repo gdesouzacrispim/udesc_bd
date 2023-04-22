@@ -13,6 +13,10 @@ public class Cliente {
     private String cpf;
     private String endereco;
 
+    public Cliente() {
+
+    }
+
     public Cliente(Integer id, String nome, String telefone, String email, String cpf, String endereco) {
         this.id = id;
         this.nome = nome;

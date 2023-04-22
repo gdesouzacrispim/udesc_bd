@@ -126,7 +126,7 @@ public class AgenciaServiceBean implements AgenciaService {
     }
 
     @Override
-    public void listByCidade(Connection con) throws SQLException, IOException {
+    public void listByCidade(Connection con) throws SQLException, IOException, CampoInvalidoExceptions {
 
         Integer idCidade = Integer.valueOf(JOptionPane.showInputDialog("Você quer visualizar as agências de qual cidade - digite o ID\n" +
                 Utils.showAllCitysFormated(con)));
@@ -134,14 +134,8 @@ public class AgenciaServiceBean implements AgenciaService {
         List<AgenciaCidadeDTO> agenciaCidadeDTOS = AgenciaDAO.listByCidade(con, idCidade);
 
         File file = new File("src/main/resources/relatórios/relatorioAgenciaCidade.txt");
-        if (!file.exists()) {
-            boolean created = file.createNewFile();
-            if (created) {
-                System.out.println("Arquivo criado com sucesso.");
-            } else {
-                System.out.println("O arquivo já existe.");
-            }
-        }
+        Utils.validateGenericInput(file);
+
         OutputStream fis = new FileOutputStream(file);
         Writer writer = new OutputStreamWriter(fis);
         BufferedWriter bufferedReader = new BufferedWriter(writer);

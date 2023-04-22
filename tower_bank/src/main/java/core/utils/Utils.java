@@ -11,6 +11,8 @@ import entity.Agencia;
 import entity.Cidade;
 import entity.Cliente;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -65,5 +67,16 @@ public class Utils {
             }
         }
         return stringBuilder.toString();
+    }
+
+    public static void validateFiles(File file) throws IOException {
+        if (!file.exists()) {
+            boolean created = file.createNewFile();
+            if (created) {
+                System.out.println("Arquivo criado com sucesso.");
+            } else {
+                System.out.println("O arquivo já existe.");
+            }
+        }
     }
 }

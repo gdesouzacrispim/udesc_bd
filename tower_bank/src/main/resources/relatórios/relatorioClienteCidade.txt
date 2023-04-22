@@ -1,0 +1,14 @@
+NOME CLIENTE                  NUMERO CONTA   TIPO CONTA     NOME CIDADE
+__________________________________________________________________________________________
+Pedro Santos                  55666          corrente       Cercal
+
+Lucas Pereira                 79017          poupança       Cercal
+
+Julia Santos                  30017          poupança       Cercal
+
+Fernanda Silva                24262          corrente       Cercal
+
+Mariana Pereira               1010           corrente       Cercal
+
+Henrique Souza                37510          poupança       Cercal
+

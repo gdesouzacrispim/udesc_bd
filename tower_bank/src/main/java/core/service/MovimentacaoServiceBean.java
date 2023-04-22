@@ -6,7 +6,7 @@ import core.exception.CampoInvalidoExceptions;
 import core.exception.ContaNotFoundException;
 import core.exception.SaldoInvalidoException;
 import core.utils.ExemploJCalendar;
-import dto.AgenciaCidadeDTO;
+import core.utils.Utils;
 import entity.Conta;
 import entity.Movimentacao;
 import entity.OperacaoCaixaEletronico;
@@ -30,12 +30,6 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
     static ContaService contaService = new ContaServiceBean();
 
     @Override
-    public void pagamento(Connection con, Conta conta) throws Exception{
-        System.out.println("Digite o código do boleto\n Utilize o site: https://devtools.com.br/gerador-boleto/ [para"+
-                "para gerar seu boleto]");
-    }
-
-    @Override
     public void deposito(Connection con, Conta conta)  throws Exception{
 
         Double saldo = conta.getSaldo();
@@ -48,6 +42,7 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
 
         conta.setSaldo(saldo+valor);
         ContaDAO.updateSaldo(con, conta);
+
         //Registrar transação
         String descricao = "Deposito de R$ " + valor + " foi realizado";
         Movimentacao movimentacao = new Movimentacao(conta.getId(), OperacaoCaixaEletronico.DEPOSITO.getCod(),
@@ -115,14 +110,7 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
         List<Movimentacao> movimentacoes = MovimentacaoDAO.extrato(con, initialDate.getDateSelecionada(), finalDate.getDateSelecionada(), conta.getId());
 
         File file = new File("src/main/resources/relatórios/extrato.txt");
-        if (!file.exists()) {
-            boolean created = file.createNewFile();
-            if (created) {
-                System.out.println("Arquivo criado com sucesso.");
-            } else {
-                System.out.println("O arquivo já existe.");
-            }
-        }
+        Utils.validateFiles(file);
         OutputStream fis = new FileOutputStream(file);
         Writer writer = new OutputStreamWriter(fis);
         BufferedWriter bufferedReader = new BufferedWriter(writer);
@@ -137,11 +125,6 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
         bufferedReader.close();
         Desktop.getDesktop().open(file);
 
-        return null;
-    }
-
-    @Override
-    public Movimentacao comprovamte(Connection con, Conta conta) throws Exception{
         return null;
     }
 

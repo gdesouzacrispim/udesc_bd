@@ -37,6 +37,4 @@ public class ExtratoDTO {
     public void setValor(Double valor) {
         this.valor = valor;
     }
-
-
 }

@@ -10,6 +10,9 @@ public class Conta {
     private Integer numero;
     private Integer senha;
 
+    public Conta() {
+    }
+
     public Conta(Integer id, Integer cliente, Integer agencia, Integer tipo, Double saldo, Integer numero) {
         this.id = id;
         this.cliente = cliente;
