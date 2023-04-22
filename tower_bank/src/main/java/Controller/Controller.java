@@ -80,10 +80,9 @@ public class Controller {
             System.out.println("_______________________________ \n O que deseja fazer?\n\n" +
                     "01 - Sacar\n" +
                     "02 - Depositar\n" +
-                    "03 - Realizar pagamento de boletos\n" + //toDO COMO LER CÓDIGO BOLETO
-                    "04 - Transferências\n" +
-                    "05 - Consultar extrato\n" +
-                    "06 - Atualizar seus dados\n" + //toDO
+                    "03 - Transferências\n" +
+                    "04 - Consultar extrato\n" +
+                    "05 - Atualizar seus dados\n" +
                     "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
@@ -91,16 +90,14 @@ public class Controller {
                     break;
                 case 2: movimentacaoService.deposito(connection, conta);
                     break;
-                case 3: movimentacaoService.pagamento(connection, conta);
+                case 3: movimentacaoService.transferencia(connection, conta);
                     break;
-                case 4: movimentacaoService.transferencia(connection, conta);
+                case 4: movimentacaoService.extrato(connection, conta);
                     break;
-                case 5: movimentacaoService.extrato(connection, conta);
-                    break;
-                case 6: clienteService.update(connection);
+                case 5: clienteService.update(connection, conta);
                     break;
             }
-        } while(op>0 && op<7);
+        } while(op>0 && op<6);
 
     }
 
@@ -119,7 +116,8 @@ public class Controller {
                             "07 - deletar agência\n" +
                             "08 - Remover cliente\n" +
                             "09 - Atualizar dados agência\n" +
-                            "10 - Relatório: Listar agência por cidade" +
+                            "10 - Relatório: Listar agência por cidade\n" +
+                            "11 - Relatório: Cliente por cidade" +
                             "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
@@ -143,8 +141,10 @@ public class Controller {
                     break;
                 case 10: agenciaService.listByCidade(connection);
                     break;
+                case 11: clienteService.listByCidade(connection);
+                    break;
             }
-        } while(op>0 && op<11);
+        } while(op>0 && op<12);
     }
 
 }

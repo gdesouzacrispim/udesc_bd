@@ -1,5 +1,6 @@
 package core.dao;
 
+import dto.ClienteCidadeDTO;
 import entity.Cliente;
 
 import java.sql.Connection;
@@ -70,5 +71,35 @@ public class ClienteDAO {
         st.setInt(1, id);
         st.execute();
         st.close();
+    }
+
+    public static void update(Connection con, Cliente cliente) throws SQLException {
+        PreparedStatement st;
+        st = con.prepareStatement("UPDATE  trabalho.cliente SET telefone = ?, email = ?, endereco = ?" +
+                " where id = ?");
+        st.setString(1, cliente.getTelefone());
+        st.setString(2, cliente.getEmail());
+        st.setString(3, cliente.getEndereco());
+        st.setInt(4, cliente.getId());
+        st.execute();
+        st.close();
+    }
+
+    public static List<ClienteCidadeDTO> listByCidade (Connection con, Integer idCidade) throws SQLException {
+        List<ClienteCidadeDTO> clienteCidadeDTOS = new ArrayList<>();
+        PreparedStatement st;
+        st = con.prepareStatement("select c.nome, c2.numero, c2.tipo, ci.nome from trabalho.cliente c\n" +
+                "    join trabalho.conta c2 on c.id = c2.id_cliente\n" +
+                "    join trabalho.agencia a on c2.id_agencia = a.id\n" +
+                "    join trabalho.cidade ci on a.cidade = ci.id where ci.id = ? ");
+        st.setInt(1, idCidade);
+        ResultSet resultSet = st.executeQuery();
+
+        while (resultSet.next()){
+            clienteCidadeDTOS.add(new ClienteCidadeDTO(resultSet.getString(1), resultSet.getInt(2),
+                    resultSet.getInt(3), resultSet.getString(4)));
+        }
+        st.close();
+        return clienteCidadeDTOS;
     }
 }

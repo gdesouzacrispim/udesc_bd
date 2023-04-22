@@ -21,5 +21,5 @@ public interface AgenciaService extends Serializable {
 
     Agencia getById(Connection con, Integer id) throws CampoInvalidoExceptions, SQLException;
 
-    void listByCidade(Connection con) throws SQLException, IOException;
+    void listByCidade(Connection con) throws SQLException, IOException, CampoInvalidoExceptions;
 }
