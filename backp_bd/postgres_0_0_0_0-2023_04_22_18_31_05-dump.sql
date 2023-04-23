@@ -254,92 +254,6 @@ ALTER TABLE ONLY trabalho.movimentacao ALTER COLUMN id_movimentacao SET DEFAULT 
 
 
 --
--- Data for Name: agencia; Type: TABLE DATA; Schema: trabalho; Owner: postgres
---
-
-COPY trabalho.agencia (id, nome, endereco, cnpj, cidade) FROM stdin;
-7	Agência Central	Rua A, 123	12345678900001	1
-8	Agência Norte	Rua B, 456	98765432100001	2
-9	Agência Sul	rua camarão, 28	54548494979799	3
-11	Agencia Arrascaeta	Rua flamengo, 45	154549879894	4
-12	Itau unibanco	Avenida paulista, 489	87484784564	4
-13	Agencia da ostra	Rua do limoeiro, 89	545848744848487	3
-\.
-
-
---
--- Data for Name: cidade; Type: TABLE DATA; Schema: trabalho; Owner: postgres
---
-
-COPY trabalho.cidade (id, nome, uf) FROM stdin;
-1	Colatina	ES
-2	Joinville	SC
-3	Cercal	CE
-4	São Paulo	SP
-\.
-
-
---
--- Data for Name: cliente; Type: TABLE DATA; Schema: trabalho; Owner: postgres
---
-
-COPY trabalho.cliente (id, nome, telefone, email, cpf, endereco) FROM stdin;
-6	João Silva	47992072150	joao@gmail.com	123.456.789-00	Rua J, 654
-7	Maria Souza	47999999999	maria@gmail.com	987.654.321-00	Rua A, 640
-14	Henrique Souza	11656565665	henrique@gmail.com	789.012.345-00	Rua T, 48
-15	Mariana Pereira	4730308080	mariana@gmail.com	901.234.567-00	Rua J, 99
-12	Ricardo Oliveira	21656565656	ricardo@gmail.com	345.678.901-00	Rua Y, 111
-8	Pedro Santos	47222222222	pedro@gmail.com	456.789.123-00	Rua B, 54
-18	Conta_Pagamentos	47989898989	pagamentos@gmail.com	598688997945	Rua P, 02
-16	gustavo	11656565998	gustavo@gmail.com	14878965698	Rua E, 989
-13	Julia Santos	21656565656	julia@gmail.com	567.890.123-00	Rua Z, 52
-9	Ana Oliveira	47555555555	ana@gmail.com	654.321.987-00	Rua G, 6D
-10	Lucas Pereira	47666666666	lucas@gmail.com	789.123.456-00	Rua D, 454
-11	Fernanda Silva	47656565656	fernanda@gmail.com	234.567.890-00	Rua D, 454
-\.
-
-
---
--- Data for Name: conta; Type: TABLE DATA; Schema: trabalho; Owner: postgres
---
-
-COPY trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) FROM stdin;
-145	8	9	105	55666	0.00	1234
-134	7	8	105	15802	0.00	1234
-142	15	8	105	51698	0.00	1234
-147	10	9	106	79017	0.00	1234
-126	9	7	106	15829	0.00	1234
-150	13	9	106	30017	0.00	1234
-148	11	9	105	24262	0.00	1234
-123	6	7	105	99642	0.00	1234
-139	12	8	105	59859	0.00	1234
-157	18	12	106	99999	0.00	9999
-155	15	9	105	1010	160.00	1234
-151	14	9	106	37510	14.00	1234
-\.
-
-
---
--- Data for Name: movimentacao; Type: TABLE DATA; Schema: trabalho; Owner: postgres
---
-
-COPY trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) FROM stdin;
-5	155	1	\N	9	2023-04-09 00:00:00	5.00	Saque de R$ 5.0 foi realizado
-6	155	1	\N	9	2023-04-09 00:00:00	75.00	Saque de R$ 75.0 foi realizado
-7	155	2	155	9	2023-04-09 00:00:00	50.00	Deposito de R$ 50.0 foi realizado
-8	155	1	\N	9	2023-04-09 00:00:00	35.00	Saque de R$ 35.0 foi realizado
-9	155	2	155	9	2023-04-09 00:00:00	10.00	Deposito de R$ 10.0 foi realizado
-10	155	1	\N	9	2023-04-18 00:00:00	1.00	Saque de R$ 1.0 foi realizado
-11	155	2	155	9	2023-04-18 00:00:00	5.00	Deposito de R$ 5.0 foi realizado
-12	155	1	\N	9	2023-04-18 00:00:00	3.00	Saque de R$ 3.0 foi realizado
-13	155	2	155	9	2023-04-18 00:00:00	98.00	Deposito de R$ 98.0 foi realizado
-14	155	1	\N	9	2023-04-18 02:45:39.827	5.00	Saque de R$ 5.0 foi realizado
-15	155	4	151	9	2023-04-18 02:48:02.623	5.00	Transferência de R$ 5.0 foi realizada
-16	155	4	151	9	2023-04-18 02:48:23.515	9.00	Transferência de R$ 9.0 foi realizada
-\.
-
-
---
 -- Name: agencia_id; Type: SEQUENCE SET; Schema: trabalho; Owner: postgres
 --
 
@@ -468,9 +382,72 @@ ALTER TABLE ONLY trabalho.movimentacao
 
 ALTER TABLE ONLY trabalho.movimentacao
     ADD CONSTRAINT movimentacao_conta_op_fk FOREIGN KEY (id_conta_op) REFERENCES trabalho.conta(id);
+    
+    
+INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (7, 'Agência Central', 'Rua A, 123', '12345678900001', 1);
+INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (8, 'Agência Norte', 'Rua B, 456', '98765432100001', 2);
+INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (9, 'Agência Sul', 'rua camarão, 28', '54548494979799', 3);
+INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (11, 'Agencia Arrascaeta', 'Rua flamengo, 45', '154549879894', 4);
+INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (12, 'Itau unibanco', 'Avenida paulista, 489', '87484784564', 4);
+INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (13, 'Agencia da ostra', 'Rua do limoeiro, 89', '545848744848487', 3);
+
+INSERT INTO trabalho.cidade (id, nome, uf) VALUES (1, 'Colatina', 'ES');
+INSERT INTO trabalho.cidade (id, nome, uf) VALUES (2, 'Joinville', 'SC');
+INSERT INTO trabalho.cidade (id, nome, uf) VALUES (3, 'Cercal', 'CE');
+INSERT INTO trabalho.cidade (id, nome, uf) VALUES (4, 'São Paulo', 'SP');
 
 
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (6, 'João Silva', '47992072150', 'joao@gmail.com', '123.456.789-00', 'Rua J, 654');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (7, 'Maria Souza', '47999999999', 'maria@gmail.com', '987.654.321-00', 'Rua A, 640');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (14, 'Henrique Souza', '11656565665', 'henrique@gmail.com', '789.012.345-00', 'Rua T, 48');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (15, 'Mariana Pereira', '4730308080', 'mariana@gmail.com', '901.234.567-00', 'Rua J, 99');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (12, 'Ricardo Oliveira', '21656565656', 'ricardo@gmail.com', '345.678.901-00', 'Rua Y, 111');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (8, 'Pedro Santos', '47222222222', 'pedro@gmail.com', '456.789.123-00', 'Rua B, 54');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (18, 'Conta_Pagamentos', '47989898989', 'pagamentos@gmail.com', '598688997945', 'Rua P, 02');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (16, 'gustavo', '11656565998', 'gustavo@gmail.com', '14878965698', 'Rua E, 989');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (13, 'Julia Santos', '21656565656', 'julia@gmail.com', '567.890.123-00', 'Rua Z, 52');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (9, 'Ana Oliveira', '47555555555', 'ana@gmail.com', '654.321.987-00', 'Rua G, 6D');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (10, 'Lucas Pereira', '47666666666', 'lucas@gmail.com', '789.123.456-00', 'Rua D, 454');
+INSERT INTO trabalho.cliente (id, nome, telefone, email, cpf, endereco) VALUES (11, 'Fernanda Silva', '47656565656', 'fernanda@gmail.com', '234.567.890-00', 'Rua D, 454');
+
+
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (145, 8, 9, 105, 55666, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (134, 7, 8, 105, 15802, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (142, 15, 8, 105, 51698, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (147, 10, 9, 106, 79017, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (126, 9, 7, 106, 15829, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (150, 13, 9, 106, 30017, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (148, 11, 9, 105, 24262, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (123, 6, 7, 105, 99642, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (139, 12, 8, 105, 59859, 0.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (157, 18, 12, 106, 99999, 0.00, 9999);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (155, 15, 9, 105, 1010, 160.00, 1234);
+INSERT INTO trabalho.conta (id, id_cliente, id_agencia, tipo, numero, saldo, senha) VALUES (151, 14, 9, 106, 37510, 14.00, 1234);
+
+
+
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (5, 155, 1, null, 9, '2023-04-09 00:00:00.000000', 5.00, 'Saque de R$ 5.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (6, 155, 1, null, 9, '2023-04-09 00:00:00.000000', 75.00, 'Saque de R$ 75.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (7, 155, 2, 155, 9, '2023-04-09 00:00:00.000000', 50.00, 'Deposito de R$ 50.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (8, 155, 1, null, 9, '2023-04-09 00:00:00.000000', 35.00, 'Saque de R$ 35.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (9, 155, 2, 155, 9, '2023-04-09 00:00:00.000000', 10.00, 'Deposito de R$ 10.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (10, 155, 1, null, 9, '2023-04-18 00:00:00.000000', 1.00, 'Saque de R$ 1.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (11, 155, 2, 155, 9, '2023-04-18 00:00:00.000000', 5.00, 'Deposito de R$ 5.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (12, 155, 1, null, 9, '2023-04-18 00:00:00.000000', 3.00, 'Saque de R$ 3.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (13, 155, 2, 155, 9, '2023-04-18 00:00:00.000000', 98.00, 'Deposito de R$ 98.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (14, 155, 1, null, 9, '2023-04-18 02:45:39.827000', 5.00, 'Saque de R$ 5.0 foi realizado');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (15, 155, 4, 151, 9, '2023-04-18 02:48:02.623000', 5.00, 'Transferência de R$ 5.0 foi realizada');
+INSERT INTO trabalho.movimentacao (id_movimentacao, id_conta_autor, operacao, id_conta_op, id_agencia_op, data, valor, descricao) VALUES (16, 155, 4, 151, 9, '2023-04-18 02:48:23.515000', 9.00, 'Transferência de R$ 9.0 foi realizada');
 --
 -- PostgreSQL database dump complete
 --
+
+
+
+
+
+
+
+
+
 
