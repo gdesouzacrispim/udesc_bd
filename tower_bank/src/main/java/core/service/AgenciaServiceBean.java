@@ -56,7 +56,10 @@ public class AgenciaServiceBean implements AgenciaService {
 
         Utils.validateGenericInput(idCidade);
 
-        AgenciaDAO.deleteById(con, idCidade);
+        boolean result = AgenciaDAO.deleteById(con, idCidade);
+        if (!result){
+            JOptionPane.showMessageDialog(null, "Não foi possível deletar agência pois ainda possui contas ativas");
+        }
     }
 
 

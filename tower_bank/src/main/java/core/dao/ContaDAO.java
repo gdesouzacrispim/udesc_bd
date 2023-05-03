@@ -24,13 +24,20 @@ public class ContaDAO {
         statement.close();
     }
 
-    public static void delete(Connection connection, Integer numero, Integer senha) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("DELETE FROM trabalho.conta WHERE numero = ? and senha = ?");
-        statement.setInt(1, numero);
-        statement.setInt(2, senha);
-        statement.execute();
-        statement.close();
+    public static boolean delete(Connection connection, Integer numero, Integer senha) throws SQLException {
+        try {
+            PreparedStatement statement;
+            statement = connection.prepareStatement("DELETE FROM trabalho.conta WHERE numero = ? and senha = ?");
+            statement.setInt(1, numero);
+            statement.setInt(2, senha);
+            boolean execute = statement.execute();
+            statement.close();
+
+            return execute;
+        } catch (SQLException e) {
+            System.err.println("Ocorreu um erro ao executar a query: " + e.getMessage());
+            return false;
+        }
     }
 
     public static Conta getByNumberAndPassoword(Connection con, Integer num, Integer senha) throws SQLException {

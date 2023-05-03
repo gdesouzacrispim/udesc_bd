@@ -1,16 +1,12 @@
 DATA                          DESCRIÇÃO                                              VALOR
 __________________________________________________________________________________________
-2023-04-18 00:00:00.0         Saque de R$ 1.0 foi realizado                           1,00
+2023-05-02 23:27:00.882       Saque de R$ 20.0 foi realizado                         20,00
 
-2023-04-18 00:00:00.0         Deposito de R$ 5.0 foi realizado                        5,00
+2023-05-02 23:27:10.016       Deposito de R$ 20.0 foi realizado                      20,00
 
-2023-04-18 00:00:00.0         Saque de R$ 3.0 foi realizado                           3,00
+2023-05-02 23:31:01.89        Saque de R$ 1.0 foi realizado                           1,00
 
-2023-04-18 00:00:00.0         Deposito de R$ 98.0 foi realizado                      98,00
+2023-05-02 23:31:07.226       Deposito de R$ 30.0 foi realizado                      30,00
 
-2023-04-18 02:45:39.827       Saque de R$ 5.0 foi realizado                           5,00
-
-2023-04-18 02:48:02.623       Transferência de R$ 5.0 foi realizada                   5,00
-
-2023-04-18 02:48:23.515       Transferência de R$ 9.0 foi realizada                   9,00
+2023-05-02 23:31:39.439       Transferência de R$ 33.0 foi realizada para 15         33,00
 

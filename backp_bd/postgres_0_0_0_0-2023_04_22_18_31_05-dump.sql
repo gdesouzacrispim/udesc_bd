@@ -184,11 +184,11 @@ ALTER SEQUENCE trabalho.conta_id OWNED BY trabalho.conta.id;
 
 CREATE TABLE trabalho.movimentacao (
     id_movimentacao integer NOT NULL,
-    id_conta_autor integer NOT NULL,
-    operacao integer NOT NULL,
+    id_conta_autor integer,
+    operacao integer,
     id_conta_op integer,
-    id_agencia_op integer NOT NULL,
-    data timestamp without time zone NOT NULL,
+    id_agencia_op integer,
+    data timestamp without time zone,
     valor numeric(1000,2) NOT NULL,
     descricao character varying(300) NOT NULL
 );
@@ -358,30 +358,6 @@ ALTER TABLE ONLY trabalho.conta
 
 ALTER TABLE ONLY trabalho.agencia
     ADD CONSTRAINT fk_cidade FOREIGN KEY (cidade) REFERENCES trabalho.cidade(id);
-
-
---
--- Name: movimentacao movimentacao_agencia_fk; Type: FK CONSTRAINT; Schema: trabalho; Owner: postgres
---
-
-ALTER TABLE ONLY trabalho.movimentacao
-    ADD CONSTRAINT movimentacao_agencia_fk FOREIGN KEY (id_agencia_op) REFERENCES trabalho.agencia(id);
-
-
---
--- Name: movimentacao movimentacao_conta_fk; Type: FK CONSTRAINT; Schema: trabalho; Owner: postgres
---
-
-ALTER TABLE ONLY trabalho.movimentacao
-    ADD CONSTRAINT movimentacao_conta_fk FOREIGN KEY (id_conta_autor) REFERENCES trabalho.conta(id);
-
-
---
--- Name: movimentacao movimentacao_conta_op_fk; Type: FK CONSTRAINT; Schema: trabalho; Owner: postgres
---
-
-ALTER TABLE ONLY trabalho.movimentacao
-    ADD CONSTRAINT movimentacao_conta_op_fk FOREIGN KEY (id_conta_op) REFERENCES trabalho.conta(id);
     
     
 INSERT INTO trabalho.agencia (id, nome, endereco, cnpj, cidade) VALUES (7, 'Agência Central', 'Rua A, 123', '12345678900001', 1);
