@@ -55,12 +55,19 @@ public class CidadeDAO {
         return cidades;
     }
 
-    public static void deleteById(Connection con, Integer id) throws SQLException {
-         PreparedStatement st;
-         st = con.prepareStatement("DELETE FROM trabalho.cidade WHERE id = ?");
-         st.setInt(1, id);
-         st.execute();
-         st.execute();
+    public static boolean deleteById(Connection con, Integer id) throws SQLException {
+        try {
+            PreparedStatement st;
+            st = con.prepareStatement("DELETE FROM trabalho.cidade WHERE id = ?");
+            st.setInt(1, id);
+            boolean execute = st.execute();
+            st.close();
+            return execute;
+        } catch (SQLException e) {
+            System.err.println("Ocorreu um erro ao executar a query: " + e.getMessage());
+            return false;
+        }
     }
-
 }
+
+

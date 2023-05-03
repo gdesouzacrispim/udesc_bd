@@ -89,6 +89,7 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
 
         conta.setSaldo(conta.getSaldo()-valor);
         contaDestino.setSaldo(contaDestino.getSaldo()+valor);
+
         ContaDAO.updateSaldo(con, conta);
         ContaDAO.updateSaldo(con, contaDestino);
 

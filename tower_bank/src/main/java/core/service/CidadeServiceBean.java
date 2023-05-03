@@ -31,7 +31,10 @@ public class CidadeServiceBean implements CidadeService{
 
         Utils.validateGenericInput(idCidade);
 
-        CidadeDAO.deleteById(con, idCidade);
+        boolean result = CidadeDAO.deleteById(con, idCidade);
+        if (!result) {
+            JOptionPane.showMessageDialog(null, "Não foi possível deletar cidade pois há agências nela");
+        }
     }
 
     @Override

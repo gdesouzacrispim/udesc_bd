@@ -30,6 +30,7 @@ public class ContaServiceBean implements ContaService {
         Cliente cliente = null;
 
         System.out.println("Para qual cliente você quer abrir uma conta?\n (Informe o ID)");
+        JOptionPane.showMessageDialog(null, Utils.showAllClienteFormated(con));
         Integer id = input.nextInt();
 
         cliente = clienteService.getById(con, id);
@@ -43,6 +44,7 @@ public class ContaServiceBean implements ContaService {
         Integer numeroConta = generateCountNumber();
 
         System.out.println("Digite o código da agência que deseja criar a conta");
+        JOptionPane.showMessageDialog(null, Utils.showAllAgenciaFormated(con));
         Integer agencia = input.nextInt();
 
         Double saldo = Double.valueOf(JOptionPane.showInputDialog("Caso há, digite o valor do depósito incial (Ex: 100.00)"));
