@@ -1,0 +1,56 @@
+CREATE (c1:Cliente {nome: 'Maria', telefone: '123456789', email: 'maria@example.com', endereco: 'Rua A, 123'})
+CREATE (c2:Cliente {nome: 'João', telefone: '987654321', email: 'joao@example.com', endereco: 'Rua B, 456'})
+CREATE (c3:Cliente {nome: 'Ana', telefone: '555555555', email: 'ana@example.com', endereco: 'Rua C, 789'})
+CREATE (c4:Cliente {nome: 'Pedro', telefone: '999999999', email: 'pedro@example.com', endereco: 'Rua D, 012'})
+CREATE (c5:Cliente {nome: 'Laura', telefone: '111111111', email: 'laura@example.com', endereco: 'Rua E, 345'})
+CREATE (c6:Cliente {nome: 'Lucas', telefone: '222222222', email: 'lucas@example.com', endereco: 'Rua F, 678'})
+CREATE (c7:Cliente {nome: 'Isabela', telefone: '333333333', email: 'isabela@example.com', endereco: 'Rua G, 901'})
+CREATE (c8:Cliente {nome: 'Gabriel', telefone: '444444444', email: 'gabriel@example.com', endereco: 'Rua H, 234'})
+CREATE (c9:Cliente {nome: 'Mariana', telefone: '777777777', email: 'mariana@example.com', endereco: 'Rua I, 567'})
+CREATE (c10:Cliente {nome: 'Rodrigo', telefone: '888888888', email: 'rodrigo@example.com', endereco: 'Rua J, 890'})
+
+CREATE (ci1:Cidade {nome: 'Belo Horizonte', uf: 'MG'})
+CREATE (ci2:Cidade {nome: 'Rio de Janeiro', uf: 'RJ'})
+CREATE (ci3:Cidade {nome: 'São Paulo', uf: 'SP'})
+
+CREATE (a1:Agencia {nome: 'Agencia A', endereco: 'Rua X, 789', cnpj: '12.345.678/9012-34'})
+CREATE (a2:Agencia {nome: 'Agencia B', endereco: 'Rua Y, 012', cnpj: '56.789.012/3456-78'})
+CREATE (a3:Agencia {nome: 'Agencia C', endereco: 'Rua Z, 345', cnpj: '90.123.456/7890-12'})
+CREATE (a4:Agencia {nome: 'Agencia D', endereco: 'Rua W, 678', cnpj: '34.567.890/1234-56'})
+
+CREATE (a1)-[:LOCALIZADA_EM]->(ci1)
+CREATE (a2)-[:LOCALIZADA_EM]->(ci2)
+CREATE (a3)-[:LOCALIZADA_EM]->(ci3)
+CREATE (a4)-[:LOCALIZADA_EM]->(ci1)
+
+CREATE (c1)-[:POSSUI]->(co1:Conta {tipo: 105, saldo: 1000, numero: 123456, senha: 1234})
+CREATE (c2)-[:POSSUI]->(co2:Conta {tipo: 106, saldo: 5000, numero: 789012, senha: 5678})
+CREATE (c3)-[:POSSUI]->(co3:Conta {tipo: 105, saldo: 2000, numero: 345678, senha: 9012})
+CREATE (c4)-[:POSSUI]->(co4:Conta {tipo: 106, saldo: 3000, numero: 901234, senha: 3456})
+CREATE (c5)-[:POSSUI]->(co5:Conta {tipo: 105, saldo: 4000, numero: 567890, senha: 7890})
+CREATE (c6)-[:POSSUI]->(co6:Conta {tipo: 106, saldo: 6000, numero: 234567, senha: 1234})
+CREATE (c7)-[:POSSUI]->(co7:Conta {tipo: 105, saldo: 1500, numero: 890123, senha: 5678})
+CREATE (c8)-[:POSSUI]->(co8:Conta {tipo: 106, saldo: 2500, numero: 456789, senha: 9012})
+CREATE (c9)-[:POSSUI]->(co9:Conta {tipo: 105, saldo: 3500, numero: 012345, senha: 3456})
+CREATE (c10)-[:POSSUI]->(co10:Conta {tipo: 106, saldo: 4500, numero: 678901, senha: 7890})
+
+CREATE (co1)-[:VINCULADA_A]->(a1)
+CREATE (co2)-[:VINCULADA_A]->(a2)
+CREATE (co3)-[:VINCULADA_A]->(a3)
+CREATE (co4)-[:VINCULADA_A]->(a4)
+CREATE (co5)-[:VINCULADA_A]->(a1)
+CREATE (co6)-[:VINCULADA_A]->(a2)
+CREATE (co7)-[:VINCULADA_A]->(a3)
+CREATE (co8)-[:VINCULADA_A]->(a4)
+CREATE (co9)-[:VINCULADA_A]->(a1)
+CREATE (co10)-[:VINCULADA_A]->(a2)
+
+CREATE (m1:Movimentacao {data: '2023-07-06T12:34:56.789Z', valor: 300, descricao: 'Depósito de R$ 5,00 foi realizado', operacao: 2})
+
+
+CREATE (co2)-[:REALIZA_MOV]->(m1)
+CREATE (m1)-[:BENEFICIA]->(co1)
+CREATE (m1)-[:REALIZADA_EM]->(a1)
+
+
+RETURN *
