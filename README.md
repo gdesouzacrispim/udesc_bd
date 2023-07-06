@@ -20,3 +20,10 @@ Instruções:
 de conexão de seu banco
 
 Senha para sessão como administrador: pudim
+
+------------------
+
+#06/07
+
+  - no arquivo NOVO_CREATE_NEO4J.txt há os scripts a serem rodados no neo4j para já popular com alguns nós e relações.
+  - É necessário trocar autenticação na classe de Con.class caso a mesma mude - demais passos para execução são idênticos ao relatados acima. 
