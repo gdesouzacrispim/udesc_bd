@@ -4,15 +4,15 @@ import core.dao.CidadeDAO;
 import core.exception.CampoInvalidoExceptions;
 import core.utils.Utils;
 import entity.Cidade;
+import org.neo4j.driver.Driver;
 
 import javax.swing.JOptionPane;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class CidadeServiceBean implements CidadeService{
     @Override
-    public void cadastrar(Connection con) throws CampoInvalidoExceptions, SQLException {
+    public void cadastrar(Driver con) throws CampoInvalidoExceptions, SQLException {
 
         String municipio = JOptionPane.showInputDialog("Digite o nome da cidade");
         String uf = JOptionPane.showInputDialog("Digite a UF da cidade");
@@ -25,7 +25,7 @@ public class CidadeServiceBean implements CidadeService{
     }
 
     @Override
-    public void delete(Connection con) throws SQLException, CampoInvalidoExceptions {
+    public void delete(Driver con) throws SQLException, CampoInvalidoExceptions {
         Integer idCidade = Integer.valueOf(JOptionPane.showInputDialog("Infome o ID da cidade que deseja apagar\n " +
                 Utils.showAllCitysFormated(con)));
 
@@ -38,12 +38,12 @@ public class CidadeServiceBean implements CidadeService{
     }
 
     @Override
-    public List<Cidade> listAll(Connection con) throws SQLException {
+    public List<Cidade> listAll(Driver con) throws SQLException {
         return CidadeDAO.listAll(con);
     }
 
     @Override
-    public Cidade getById(Connection con, Integer id) throws Exception {
+    public Cidade getById(Driver con, Integer id) throws Exception {
         Utils.validateGenericInput(id);
         return CidadeDAO.findById(id, con);
 

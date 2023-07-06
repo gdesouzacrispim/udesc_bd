@@ -6,6 +6,7 @@ import core.utils.Utils;
 import dto.AgenciaCidadeDTO;
 import entity.Agencia;
 import entity.Cidade;
+import org.neo4j.driver.Driver;
 
 import javax.swing.JOptionPane;
 import java.awt.Desktop;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +27,7 @@ public class AgenciaServiceBean implements AgenciaService {
     Scanner input = new Scanner(System.in);
 
     @Override
-    public void create(Connection con) throws Exception {
+    public void create(Driver con) throws Exception {
 
         String nome = JOptionPane.showInputDialog("Digite o nome da agencia");
         String endereco = JOptionPane.showInputDialog("Digite o endereco da agência: (ex: Rua Paraná - 45)");
@@ -50,7 +50,7 @@ public class AgenciaServiceBean implements AgenciaService {
     }
 
     @Override
-    public void delete(Connection con) throws SQLException, CampoInvalidoExceptions {
+    public void delete(Driver con) throws SQLException, CampoInvalidoExceptions {
         Integer idCidade = Integer.valueOf(JOptionPane.showInputDialog("Infome o ID da agência que deseja apagar\n " +
                 Utils.showAllAgenciaFormated(con)));
 
@@ -64,7 +64,7 @@ public class AgenciaServiceBean implements AgenciaService {
 
 
     @Override
-    public void update(Connection con) throws Exception {
+    public void update(Driver con) throws Exception {
         Agencia novaAgencia = new Agencia();
 
         Integer agenciaId = Integer.valueOf(JOptionPane.showInputDialog("Qual ID da agência que você deseja atualizar?\n"
@@ -118,18 +118,18 @@ public class AgenciaServiceBean implements AgenciaService {
     }
 
     @Override
-    public List<Agencia> listAll(Connection con) throws SQLException {
+    public List<Agencia> listAll(Driver con) throws SQLException {
         return AgenciaDAO.listAll(con);
     }
 
     @Override
-    public Agencia getById(Connection con, Integer id) throws CampoInvalidoExceptions, SQLException {
+    public Agencia getById(Driver con, Integer id) throws CampoInvalidoExceptions, SQLException {
         Utils.validateGenericInput(id);
         return AgenciaDAO.findById(con, id);
     }
 
     @Override
-    public void listByCidade(Connection con) throws SQLException, IOException, CampoInvalidoExceptions {
+    public void listByCidade(Driver con) throws SQLException, IOException, CampoInvalidoExceptions {
 
         Integer idCidade = Integer.valueOf(JOptionPane.showInputDialog("Você quer visualizar as agências de qual cidade - digite o ID\n" +
                 Utils.showAllCitysFormated(con)));

@@ -12,9 +12,9 @@ import core.service.MovimentacaoService;
 import core.service.MovimentacaoServiceBean;
 import entity.Conta;
 import entity.TipoConta;
+import org.neo4j.driver.Driver;
 
 import javax.swing.JOptionPane;
-import java.sql.Connection;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -29,7 +29,7 @@ public class Controller {
     static Scanner input = new Scanner(System.in);
 
 
-    public static void menu(Connection connection) throws Exception {
+    public static void menu(org.neo4j.driver.Driver connectionGraph) throws Exception {
         int op = 0;
 
         do {
@@ -37,33 +37,33 @@ public class Controller {
                     "1 - Acessar conta\n2 - Administrativo\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
-                case 1: autenticacao(connection);
+                case 1: autenticacao(connectionGraph);
                 break;
-                case 2: admin(connection);
+                case 2: admin(connectionGraph);
             }
         } while(op>0 && op<3);
     }
 
-    private static void autenticacao(Connection connection) throws Exception {
+    private static void autenticacao(org.neo4j.driver.Driver connectionGraph) throws Exception {
         System.out.println("Digite o número de sua conta");
         Integer numero = input.nextInt();
         System.out.println("Digite a senha de sua conta");
         Integer senha = input.nextInt();
-        Conta conta = contaService.findByPasswordAndNumber(connection, numero, senha);
-        menuCliente(connection, conta);
+        Conta conta = contaService.findByPasswordAndNumber(connectionGraph, numero, senha);
+        menuCliente(connectionGraph, conta);
     }
     
-    private static void admin(Connection connection) throws Exception {
+    private static void admin(org.neo4j.driver.Driver connectionGraph) throws Exception {
        String senhaAdmin = JOptionPane.showInputDialog("Digite a senha de administrador: ");
         if (Objects.equals(senhaAdmin, "pudim")){
-            menuAdmin(connection);
+            menuAdmin(connectionGraph);
         } else {
             JOptionPane.showMessageDialog(null,"ACESSO NEGADO!!");
-            menu(connection);
+            menu(connectionGraph);
         }
     }
 
-    private static void menuCliente(Connection connection, Conta conta) throws Exception {
+    private static void menuCliente(org.neo4j.driver.Driver connectionGraph, Conta conta) throws Exception {
         int op = 0;
 
         do {
@@ -75,7 +75,7 @@ public class Controller {
                     break;
                 }
             }
-            System.out.println("Olá " + clienteService.getById(connection, conta.getCliente()).getNome() + "\n" +
+            System.out.println("Olá " + clienteService.getById(connectionGraph, conta.getCliente()).getNome() + "\n" +
                     "NÚMERO DA CONTA: " + conta.getNumero() + " | SALDO: " + conta.getSaldo() + " | TIPO: " + tipoConta.getDescricao());
             System.out.println("_______________________________ \n O que deseja fazer?\n\n" +
                     "01 - Sacar\n" +
@@ -86,22 +86,22 @@ public class Controller {
                     "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
-                case 1: movimentacaoService.saca(connection, conta);
+                case 1: movimentacaoService.saca(connectionGraph, conta);
                     break;
-                case 2: movimentacaoService.deposito(connection, conta);
+                case 2: movimentacaoService.deposito(connectionGraph, conta);
                     break;
-                case 3: movimentacaoService.transferencia(connection, conta);
+                case 3: movimentacaoService.transferencia(connectionGraph, conta);
                     break;
-                case 4: movimentacaoService.extrato(connection, conta);
+                case 4: movimentacaoService.extrato(connectionGraph, conta);
                     break;
-                case 5: clienteService.update(connection, conta);
+                case 5: clienteService.update(connectionGraph, conta);
                     break;
             }
         } while(op>0 && op<6);
 
     }
 
-    private static void menuAdmin(Connection connection) throws Exception {
+    private static void menuAdmin(Driver connectionGraph) throws Exception {
         JOptionPane.showMessageDialog(null,"ACESSO PERMITIDO!!");
         int op = 0;
 
@@ -121,27 +121,27 @@ public class Controller {
                             "\n\nDigite qualquer outro valor para sair\nSua opção: \n");
             op = input.nextInt();
             switch (op){
-                case 1: clienteService.create(connection);
+                case 1: clienteService.create(connectionGraph);
                     break;
-                case 2: contaService.create(connection);
+                case 2: contaService.create(connectionGraph);
                     break;
-                case 3: contaService.delete(connection);
+                case 3: contaService.delete(connectionGraph);
                     break;
-                case 4: agenciaService.create(connection);
+                case 4: agenciaService.create(connectionGraph);
                     break;
-                case 5: cidadeService.cadastrar(connection);
+                case 5: cidadeService.cadastrar(connectionGraph);
                     break;
-                case 6: cidadeService.delete(connection);
+                case 6: cidadeService.delete(connectionGraph);
                     break;
-                case 7: agenciaService.delete(connection);
+                case 7: agenciaService.delete(connectionGraph);
                     break;
-                case 8: clienteService.delete(connection);
+                case 8: clienteService.delete(connectionGraph);
                     break;
-                case 9: agenciaService.update(connection);
+                case 9: agenciaService.update(connectionGraph);
                     break;
-                case 10: agenciaService.listByCidade(connection);
+                case 10: agenciaService.listByCidade(connectionGraph);
                     break;
-                case 11: clienteService.listByCidade(connection);
+                case 11: clienteService.listByCidade(connectionGraph);
                     break;
             }
         } while(op>0 && op<12);

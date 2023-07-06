@@ -1,72 +1,68 @@
 package core.dao;
 
 import entity.Cidade;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.Values;
+import org.neo4j.driver.types.Node;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CidadeDAO {
 
-     public static void create(Connection connection, Cidade cidade) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("INSERT INTO trabalho.cidade(nome, uf) VALUES (?, ?)");
-        statement.setString(1, cidade.getNome());
-        statement.setString(2, cidade.getUF());
-        statement.execute();
-        statement.close();
+    public static void create(Driver connection, Cidade cidade) throws SQLException {
+        try (Session session = connection.session()) {
+            session.run("CREATE (cidade:Cidade {nome: $nome, uf: $uf})",
+                    Values.parameters(
+                            "nome", cidade.getNome(),
+                            "uf", cidade.getUF()
+                    ));
+        }
     }
 
-     public static Cidade findById(Integer id, Connection connection) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("SELECT * FROM trabalho.cidade WHERE id = ?");
-        statement.setInt(1, id);
-        ResultSet resultSet = statement.executeQuery();
+    public static Cidade findById(Integer id, Driver connection) throws SQLException {
+        try (Session session = connection.session()) {
+            Result result = session.run("MATCH (cidade:Cidade) WHERE id(cidade) = $id RETURN cidade",
+                    Values.parameters("id", id));
 
-        try {
-            if (resultSet.next()) {
-                Integer idCidade = resultSet.getInt("id");
-                String nome = resultSet.getString("nome");
-                String uf = resultSet.getString("uf");
-
-                return new Cidade(idCidade, nome, uf);
+            if (result.hasNext()) {
+                Node cidade = result.next().get("cidade").asNode();
+                return new Cidade(Integer.parseInt(cidade.elementId()), cidade.get("nome").asString(), cidade.get("uf").asString());
             } else {
                 return null;
             }
-        } finally {
-            statement.close();
         }
     }
 
-    public static List<Cidade> listAll(Connection con) throws SQLException {
-        Statement st;
+    public static List<Cidade> listAll(Driver con) throws SQLException {
         List<Cidade> cidades = new ArrayList<>();
-        st = con.createStatement();
-        String sql = "SELECT id, nome, uf FROM trabalho.cidade";
-        ResultSet result = st.executeQuery(sql);
-        while(result.next()) {
-            cidades.add(new Cidade(result.getInt(1), result.getString(2), result.getString(3)));
+
+        try (Session session = con.session()) {
+            Result result = session.run("MATCH (cidade:Cidade) RETURN cidade ");
+            while (result.hasNext()) {
+                Node cidadeNode = result.next().get("cidade").asNode();
+                Cidade cidadeResult = new Cidade(
+                        Integer.parseInt(cidadeNode.elementId()),
+                        cidadeNode.get("nome").asString(),
+                        cidadeNode.get("uf").asString()
+                );
+                cidades.add(cidadeResult);
+            }
         }
-        st.close();
         return cidades;
     }
 
-    public static boolean deleteById(Connection con, Integer id) throws SQLException {
-        try {
-            PreparedStatement st;
-            st = con.prepareStatement("DELETE FROM trabalho.cidade WHERE id = ?");
-            st.setInt(1, id);
-            boolean execute = st.execute();
-            st.close();
-            return execute;
-        } catch (SQLException e) {
-            System.err.println("Ocorreu um erro ao executar a query: " + e.getMessage());
-            return false;
+    public static boolean deleteById(Driver con, Integer id) throws SQLException {
+        try (Session session = con.session()) {
+            session.run("MATCH (cidade:Cidade) WHERE id(cidade) = $id DELETE cidade",
+                    Values.parameters("id", id));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return true;
     }
 }
 

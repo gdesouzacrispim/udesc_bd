@@ -10,6 +10,7 @@ import core.utils.Utils;
 import entity.Conta;
 import entity.Movimentacao;
 import entity.OperacaoCaixaEletronico;
+import org.neo4j.driver.Driver;
 
 import javax.swing.JOptionPane;
 import java.awt.Desktop;
@@ -19,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +30,7 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
     static ContaService contaService = new ContaServiceBean();
 
     @Override
-    public void deposito(Connection con, Conta conta)  throws Exception{
+    public void deposito(Driver con, Conta conta)  throws Exception{
 
         Double saldo = conta.getSaldo();
         Double valor = Double.valueOf(JOptionPane.showInputDialog("Digite o valor que gostaria de depositar: "));
@@ -52,7 +52,7 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
     }
 
     @Override
-    public void saca(Connection con, Conta conta) throws Exception {
+    public void saca(Driver con, Conta conta) throws Exception {
 
         Double saldo = conta.getSaldo();
         Double valor = Double.valueOf(JOptionPane.showInputDialog("Digite o valor que gostaria de sacar: "));
@@ -70,12 +70,12 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
         //Registrar transação
         String descricao = "Saque de R$ " + valor + " foi realizado";
         Movimentacao movimentacao = new Movimentacao(conta.getId(), OperacaoCaixaEletronico.SAQUE.getCod(),
-                null, conta.getAgencia(), new Date(System.currentTimeMillis()), valor, descricao);
+                conta.getId(), conta.getAgencia(), new Date(System.currentTimeMillis()), valor, descricao);
         MovimentacaoDAO.insert(con, movimentacao);
     }
 
     @Override
-    public void transferencia(Connection con, Conta conta) throws Exception{
+    public void transferencia(Driver con, Conta conta) throws Exception{
         Double valor = Double.valueOf(JOptionPane.showInputDialog("Qual valor deseja transferir? "));
         validaValor(conta.getSaldo(), valor);
 
@@ -101,7 +101,7 @@ public class MovimentacaoServiceBean implements MovimentacaoService{
     }
 
     @Override
-    public List<Movimentacao> extrato(Connection con, Conta conta) throws Exception{
+    public List<Movimentacao> extrato(Driver con, Conta conta) throws Exception{
         JOptionPane.showMessageDialog(null, "A seguir selecione o período do extrato, informe a" +
                         "data incial e em seguida a final");
 

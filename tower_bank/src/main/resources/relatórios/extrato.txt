@@ -1,12 +1,14 @@
 DATA                          DESCRIÇÃO                                              VALOR
 __________________________________________________________________________________________
-2023-05-02 23:27:00.882       Saque de R$ 20.0 foi realizado                         20,00
+Thu Jul 06 00:00:00 BRT 2023  Saque de R$ 5.0 foi realizado                           5,00
 
-2023-05-02 23:27:10.016       Deposito de R$ 20.0 foi realizado                      20,00
+Thu Jul 06 00:00:00 BRT 2023  Deposito de R$ 5.0 foi realizado                        5,00
 
-2023-05-02 23:31:01.89        Saque de R$ 1.0 foi realizado                           1,00
+Thu Jul 06 00:00:00 BRT 2023  Transferência de R$ 3.0 foi realizada para 7            3,00
 
-2023-05-02 23:31:07.226       Deposito de R$ 30.0 foi realizado                      30,00
+Thu Jul 06 00:00:00 BRT 2023  Deposito de R$ 85.0 foi realizado                      85,00
 
-2023-05-02 23:31:39.439       Transferência de R$ 33.0 foi realizada para 15         33,00
+Thu Jul 06 00:00:00 BRT 2023  Deposito de R$ 6.0 foi realizado                        6,00
+
+Thu Jul 06 00:00:00 BRT 2023  Deposito de R$ 5.0 foi realizado                        5,00
 

@@ -2,8 +2,8 @@ package org.main;
 
 import Controller.Controller;
 import connection.Con;
+import org.neo4j.driver.Driver;
 
-import java.sql.Connection;
 
 /**
  *
@@ -13,9 +13,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         Con con = new Con();
-        Connection connection = con.getConnection();
+        Driver connectionGraph = con.getConnectionGraph();
         Controller controller = null;
-        controller.menu(connection);
-        con.closeConnection();
+        controller.menu(connectionGraph);
+        con.closeConnectionGraph();
     }
 }

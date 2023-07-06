@@ -10,10 +10,10 @@ import core.service.ClienteServiceBean;
 import entity.Agencia;
 import entity.Cidade;
 import entity.Cliente;
+import org.neo4j.driver.Driver;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +30,7 @@ public class Utils {
         }
     }
 
-    public static String showAllCitysFormated(Connection con) throws SQLException {
+    public static String showAllCitysFormated(Driver con) throws SQLException {
         List<Cidade> cidades = cidadeService.listAll(con);
         StringBuilder stringBuilder = new StringBuilder();
         if (Objects.nonNull(cidades)) {
@@ -43,7 +43,7 @@ public class Utils {
         return  stringBuilder.toString();
     }
 
-    public static String showAllAgenciaFormated(Connection con) throws SQLException {
+    public static String showAllAgenciaFormated(Driver con) throws SQLException {
         List<Agencia> agencias = agenciaService.listAll(con);
         StringBuilder stringBuilder = new StringBuilder();
         if (Objects.nonNull(agencias)) {
@@ -56,7 +56,7 @@ public class Utils {
         return  stringBuilder.toString();
     }
 
-    public static String showAllClienteFormated(Connection con) throws SQLException {
+    public static String showAllClienteFormated(Driver con) throws SQLException {
         List<Cliente> clientes = clienteService.listAll(con);
         StringBuilder stringBuilder = new StringBuilder();
         if (Objects.nonNull(clientes)){

@@ -6,9 +6,9 @@ import core.exception.ClientNotFoundException;
 import core.utils.Utils;
 import entity.Cliente;
 import entity.Conta;
+import org.neo4j.driver.Driver;
 
 import javax.swing.JOptionPane;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public class ContaServiceBean implements ContaService {
     Scanner input = new Scanner(System.in);
 
     @Override
-    public void create(Connection con) throws Exception {
+    public void create(Driver con) throws Exception {
 
         JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ PRESTE A CRIAR UMA CONTA PARA UM CLIENTE\n" +
                 "RECOLHA OS SEGUINTES DADOS COM ATENÇÃO");
@@ -65,7 +65,7 @@ public class ContaServiceBean implements ContaService {
     }
 
     @Override
-    public void delete(Connection con) throws SQLException, CampoInvalidoExceptions {
+    public void delete(Driver con) throws SQLException, CampoInvalidoExceptions {
         JOptionPane.showMessageDialog(null, "AQUI VOCÊ PODERÁ DELETAR UMA CONTA");
 
         System.out.println("Informe o número da conta que você deseja deletar");
@@ -79,22 +79,22 @@ public class ContaServiceBean implements ContaService {
     }
 
     @Override
-    public List<Conta> listAll(Connection con) {
+    public List<Conta> listAll(Driver con) {
         return null;
     }
 
     @Override
-    public Conta getById(Connection con, Integer id) {
+    public Conta getById(Driver con, Integer id) {
         return null;
     }
 
     @Override
-    public Conta findByPasswordAndNumber(Connection con, Integer number, Integer password) throws SQLException {
+    public Conta findByPasswordAndNumber(Driver con, Integer number, Integer password) throws SQLException {
         return ContaDAO.getByNumberAndPassoword(con, number, password);
     }
 
     @Override
-    public Conta getByNumber(Connection con, Integer number) throws SQLException {
+    public Conta getByNumber(Driver con, Integer number) throws SQLException {
         return ContaDAO.findByNumber(con, number);
     }
 
